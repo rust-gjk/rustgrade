@@ -30,7 +30,8 @@ impl Index
 		let mut contents = String::new();
 		let mut me = match File::open("index") {
 			Ok(f) => f,
-			Err(_) => {
+			Err(e) => {
+				println!("{}", e);
 				let _ = File::create("index");
 				return Ok(Index {
 					users: Vec::new()
@@ -49,16 +50,16 @@ impl Index
 	pub fn write(&self) {
 		let mut index_f = match File::create("index") {
 			Ok(f) => f,
-			Err(_) => {
-				println!("error: couldn't open index for writing");
+			Err(e) => {
+				println!("error: couldn't open index for writing: {}", e);
 				exit(-1)
 			}
 		};
 
-		if write!(index_f, "{}",
+		if let Err(e) = write!(index_f, "{}",
 				toml::to_string(&self).unwrap()
-				).is_err() {
-			println!("error: failed to write to index");
+				) {
+			println!("error: failed to write to index: {}", e);
 			exit(-1)
 		}
 	}
