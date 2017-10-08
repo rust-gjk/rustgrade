@@ -29,6 +29,7 @@ pub fn new<A: ToSocketAddrs + Clone>(packet: Packet, addr: A) {
 			}
 		);
 
+		index.write();
 		Packet::Ok.ssend(&addr, &SOCKET);
 	}
 }
