@@ -10,7 +10,7 @@ use SOCKET;
 pub fn new<A: ToSocketAddrs + Clone>(packet: Packet, addr: A) {
 	let mut index = match Index::read() {
 		Ok(i) => i,
-		Err(_) => {println!("fatal error"); exit(-1)} 
+		Err(e) => {println!("fatal error: {}", e); exit(-1)} 
 	};
 
 	if let Packet::New { hash, username, name, amount } = packet {
