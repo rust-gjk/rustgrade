@@ -21,7 +21,7 @@ pub fn del<A: ToSocketAddrs + Clone>(packet: Packet, addr: A) {
 		}
 
 		index.users.retain(|x| x.username != username);
-
+		index.write();
 		Packet::Ok.ssend(&addr, &SOCKET);
 	}
 }
