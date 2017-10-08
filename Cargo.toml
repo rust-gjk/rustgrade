@@ -2,5 +2,17 @@
 name = "rustgrade"
 version = "0.1.0"
 authors = ["Lukáš Hozda <luk.hozda@gmail.com>"]
+license = "Fair"
 
 [dependencies]
+serde = "^1.0.4"
+serde_derive = "^1.0.4"
+toml = "^0.4.1"
+serde_cbor = "0.6.0"
+clap = "2.24.2"
+time = "^0.1.38"
+lazy_static = "*"
+
+[[bin]]
+name = "server"
+path = "src/server/server.rs"
