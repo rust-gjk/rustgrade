@@ -33,7 +33,7 @@ fn main() {
             Ok((a,s)) => (a,s),
             Err(_) => {
                 println!("  error: failed to receive packet");
-                exit(-1);
+                exit(-1)
             }
         };
 
@@ -42,7 +42,7 @@ fn main() {
             Ok(p) => p,
             Err(_) => {
                 println!("  error: failed to deserialize packet");
-                exit(-1);
+                exit(-1)
             }
         };
 
@@ -55,7 +55,7 @@ fn main() {
                     Packet::Rem {..} => rem::rem(packet, src),
                     
                     // these are not to be sent and so they shan't be received
-                    Packet::Error {..} => (),
+                    Packet::Error {..} |
                     Packet::Ok => ()
                 }
             }
