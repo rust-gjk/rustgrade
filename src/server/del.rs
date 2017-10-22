@@ -8,20 +8,20 @@ use AUTH_TOKEN;
 use SOCKET;
 
 pub fn del<A: ToSocketAddrs + Clone>(packet: Packet, addr: A) {
-	let mut index = match Index::read() {
-		Ok(i) => i,
-		Err(e) => {println!("fatal error: {}", e); exit(-1)} 
-	};
+    let mut index = match Index::read() {
+        Ok(i) => i,
+        Err(e) => {println!("fatal error: {}", e); exit(-1)} 
+    };
 
-	if let Packet::Del { hash, username } = packet {
-		if hash != AUTH_TOKEN {
-			Packet::error("invalid hash")
-				.ssend(&addr, &SOCKET);
-			return;
-		}
+    if let Packet::Del { hash, username } = packet {
+        if hash != AUTH_TOKEN {
+            Packet::error("invalid hash")
+                .ssend(&addr, &SOCKET);
+            return;
+        }
 
-		index.users.retain(|x| x.username != username);
-		index.write();
-		Packet::Ok.ssend(&addr, &SOCKET);
-	}
+        index.users.retain(|x| x.username != username);
+        index.write();
+        Packet::Ok.ssend(&addr, &SOCKET);
+    }
 }
